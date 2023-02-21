@@ -26,49 +26,15 @@ titles:
 key: page-about
 ---
 
-![TeXt Theme](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/TeXt-home.jpg)
 
-TeXt is a super customizable Jekyll theme for personal site, team site, blog, project, documentation, etc. Similar to iOS 11 style, it has large and prominent titles, round buttons and cards.
+## 我是Glenn1Q84
+当下我是一名有一点点理想的准数据分析工程师。
+  喜欢捣鼓一些看起来没什么用的东西，尤其是现实世界与专业知识彼此有交集的东西，比如发朋友圈的时候怎么获得更多的点赞呢？用学术的话来说就是什么样的因素或者特征能获得更多的社会支持呢？
 
-```javascript
-(() => console.log('Hello, World!'))();
-```
-
-## Features
-
-- Responsive
-- Semantic HTML
-- Skins
-- Highlight Theme
-- Internationalization
-- Search
-- Table of contents
-- Authors
-- Additional styles (alert, tag, image, icon, button, grid, etc)
-- Extensions (audios, videos, slides, demos)
-- Markdown enhancements ([MathJax](https://www.mathjax.org/), [mermaid](https://mermaidjs.github.io/), [chartjs](http://www.chartjs.org/))
-- Sharing ([AddToAny](https://www.addtoany.com/), [AddThis](https://www.addthis.com/))
-- Comments ([Disqus](https://disqus.com/), [Gitalk](https://gitalk.github.io/), [Valine](https://valine.js.org/en/))
-- Pageview ([LeanCloud](https://leancloud.cn/))
-- Analytics ([Google Analytics](https://analytics.google.com/analytics/web/))
-- RSS ([jekyll-feed](https://github.com/jekyll/jekyll-feed))
-
-## Skins
-
-TeXt has 6 built-in skins, you can also set up your own skin.
-
-| `default` | `dark` | `forest` |
-| --- |  --- | --- |
-| ![Default](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_default.jpg) | ![Dark](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_dark.jpg) | ![Forest](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_forest.jpg) |
-
-| `ocean` | `chocolate` | `orange` |
-| --- |  --- | --- |
-| ![Ocean](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_ocean.jpg) | ![Chocolate](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_chocolate.jpg) | ![Orange](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_orange.jpg) |
-
-### Highlight Theme
-
-TeXt use [Tomorrow](https://github.com/chriskempson/tomorrow-theme) as the highlight theme.
-
-| `tomorrow` | `tomorrow-night` | `tomorrow-night-eighties` | `tomorrow-night-blue` | `tomorrow-night-bright` |
-| --- |  --- | --- | --- |  --- |
-| ![Tomorrow](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow.png) | ![Tomorrow Night](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow-night.png) | ![Tomorrow Night Eighties](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow-night-eighties.png) | ![Tomorrow Night Blue](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow-night-blue.png) | ![Tomorrow Night Bright](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow-night-bright.png) |
+## 希望通过出视频Push自己学习的up主
+  人总是需要各种理由，比如学习需要动力。研二的时候我一度以为我是一颗正在冉冉升起的学术星星，但社会引力的存在让我担心我总有一天会摆烂，所以选择一星期出一期技术视频的方式来Push自己学习，每天看到来自粉丝们的一键三连应该就会动力满满。
+  虽然一键三连并不多，但视频发布的时候真的让我非常有成就感，当然，后面因为找工作、肝毕设的事情让我果然成了鸽子精。
+## 当下和以后会做点什么
+  工作是数据分析嘛，数据科学家就是目前的最大理想了，需要学习很多东西，希望把自己学到的东西都能够记录、分享，所以鸽子精不鸽了，这个时候出视频会有更大的自由度、自主选题，这真的是一件自由而且让我兴奋的事情！！！
+## 期待你能和我一起做有趣的事
+  一个人做东西确实是艰难的，而且容易摆烂，**如果你足够有趣，又热爱分享与学习，对做视频感兴趣，欢迎联系我呀！**
