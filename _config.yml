@@ -22,13 +22,13 @@ url     : # the base hostname & protocol for your site e.g. https://www.someone.
 baseurl : # does not include hostname
 title   : Glenn1Q84
 description: > # this means to ignore newlines until "Language & timezone"
-  Your Site Description
+  Thinking First, Action Second
 
 
 ## => Language and Timezone
 ##############################
 lang: zh # the language of your site, default as "en"
-timezone: # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
+timezone: Asia/Shanghai # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
 
 
 ## => Author and Social
@@ -108,7 +108,7 @@ sources: # bootcdn (default), unpkg
 ## => Sharing
 ##############################
 sharing:
-  provider: false # false (default), "addtoany", "addthis", "custom"
+  provider: True # false (default), "addtoany", "addthis", "custom"
 
   ## AddThis
   addthis:
