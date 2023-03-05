@@ -23,8 +23,17 @@ titles:
   fr-FR   : *FR
   fr-LU   : *FR
   # @end locale config
+
+article_header:
+  type: cover
+  image:
+    src: /screenshot.jpg
 key: page-about
 ---
+
+
+
+<center>	{%- include extensions/netease-cloud-music.html id='1974444807' -%}  </center>
 
 **一名有一点点理想的准数据分析工程师**  
 &ensp;&ensp;喜欢捣鼓一些看起来没什么用的东西，尤其是现实世界与专业知识彼此有交集的东西，比如发朋友圈的时候怎么获得更多的点赞呢？用学术的话来说就是什么样的因素或者特征能获得更多的社会支持呢？
