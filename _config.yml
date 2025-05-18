@@ -36,7 +36,7 @@ timezone: Asia/Shanghai # see https://en.wikipedia.org/wiki/List_of_tz_database_
 author:
   type      : # "person" (default), "organization"
   name      : Glenn1Q84
-  url       :
+  url       : Glenn1Q84/Glenn1Q84.github.io
   avatar    : # path or url of avatar image (square)
   bio       : I am an amazing person.
   email     : 3211809944@qq.com
