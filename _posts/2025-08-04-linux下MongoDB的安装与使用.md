@@ -54,6 +54,76 @@ sudo systemctl start mongod
 
 
 
+## 导出与备份数据
+
+#### 导出为mongodb格式
+
+```
+# 导出数据
+mongodump --uri="mongodb://localhost:27017/test" --out="/mnt/sdb1/liuhu/mongodb_output"
+# 恢复数据
+mongorestore --uri="mongodb://localhost:27017" --dir="/mnt/sdb1/liuhu/mongodb_output/"
+
+```
+
+大批量文件分批导出
+
+```
+mongorestore --uri="mongodb://localhost:27017" \
+             --dir="/mnt/sdb1/mongodb_output/" \
+             --batchSize=100
+```
+
+### 导出为json
+
+批量导出
+
+```
+#!/bin/bash
+DB_URI="mongodb://localhost:27017/数据库名"
+OUTPUT_DIR="/mnt/mongosh_output/数据库名"
+mkdir -p "$OUTPUT_DIR"
+
+# 获取所有集合名
+collections=$(mongosh "$DB_URI" --quiet --eval "db.getCollectionNames().join('\n')")
+
+echo "开始导出集合..."
+for collection in $collections; do
+    echo "正在导出: $collection"
+    mongoexport --uri="$DB_URI" \
+               --collection="$collection" \
+               --out="$OUTPUT_DIR/${collection}.json"
+done
+echo "导出完成！"
+```
+
+批量导入
+
+```
+#!/bin/bash
+DB_URI="mongodb://localhost:27017/数据库名"
+INPUT_DIR="/mnt/sdb1/liuhu/mongodb_output/数据库名"
+
+echo "开始导入集合..."
+for json_file in "$INPUT_DIR"/*.json; do
+    # 提取集合名（去掉.json后缀）
+    collection=$(basename "$json_file" .json)
+    echo "正在导入: $collection"
+    
+    mongoimport --uri="$DB_URI" \
+               --collection="$collection" \
+               --file="$json_file"
+               # 移除了 --jsonArray 参数
+done
+echo "导入完成！"
+```
+
+
+
+
+
+
+
 ## 出现问题之后如何debug
 
 使用以下命令查看日志信息
