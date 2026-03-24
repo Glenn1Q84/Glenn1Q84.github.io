@@ -87,21 +87,23 @@ key: page-aboutgu
 
 ### 我们的论文
 
-1.  (2025). *Toward Mental Health Risk Mitigation on Video Platforms: A Multimodal Decision-Support Framework for Detecting At-Risk Users and Identifying High-Risk Content*. The 18th China Summer Workshop on Information Management (CSWIM 2025). https://doi.org/2025.cswimworkshop.org/wp-content/uploads/2025/06/2025-CSWIM-Proceedings.pdf 
+1. (2026). The effects of content characteristics on user engagement in health communication: evidence from WeChat. *Aslib Journal of Information Management*. 1–34. https://doi.org/10.1108/AJIM-06-2025-0372
 
-2. (2025). The impact of linguistic signals on cognitive change in support seekers in online mental health communities: Text analysis and empirical study. *Journal of Medical Internet Research*, *27*, e60292. https://doi.org/10.2196/60292
+2. (2025). *Toward Mental Health Risk Mitigation on Video Platforms: A Multimodal Decision-Support Framework for Detecting At-Risk Users and Identifying High-Risk Content*. The 18th China Summer Workshop on Information Management (CSWIM 2025). https://doi.org/2025.cswimworkshop.org/wp-content/uploads/2025/06/2025-CSWIM-Proceedings.pdf 
 
-3. (2023). An analysis of cognitive change in online mental health communities: A textual data analysis based on post replies of support seekers. *Information Processing & Management*, *60*(2), 103192. https://doi.org/10.1016/j.ipm.2022.103192
+3. (2025). The impact of linguistic signals on cognitive change in support seekers in online mental health communities: Text analysis and empirical study. *Journal of Medical Internet Research*, *27*, e60292. https://doi.org/10.2196/60292
 
-4. (2024). A deep learning and clustering‐based topic consistency modeling framework for matching health information supply and demand. *Journal of the Association for Information Science and Technology*, *75*(2), 152–166. https://doi.org/10.1002/asi.24846
+4. (2023). An analysis of cognitive change in online mental health communities: A textual data analysis based on post replies of support seekers. *Information Processing & Management*, *60*(2), 103192. https://doi.org/10.1016/j.ipm.2022.103192
 
-5. (2024). Physician’s service quality and patient’s review behavior: Managing online review to attract more patients. *Internet Research*. https://doi.org/10.1108/intr-03-2024-0426
+5. (2024). A deep learning and clustering‐based topic consistency modeling framework for matching health information supply and demand. *Journal of the Association for Information Science and Technology*, *75*(2), 152–166. https://doi.org/10.1002/asi.24846
 
-6. (2022). Predicting the quality of answers with less bias in online health question answering communities. *Information Processing & Management*, *59*(6), 103112. https://doi.org/10.1016/j.ipm.2022.103112
+6. (2024). Physician’s service quality and patient’s review behavior: Managing online review to attract more patients. *Internet Research*. https://doi.org/10.1108/intr-03-2024-0426
 
-7. (2022). Two-stage matching decision-making method in medical service supply chain. *International Journal of Logistics Research and Applications*, *25*(4–5), 623–638. https://doi.org/10.1080/13675567.2021.1878489
+7. (2022). Predicting the quality of answers with less bias in online health question answering communities. *Information Processing & Management*, *59*(6), 103112. https://doi.org/10.1016/j.ipm.2022.103112
 
-8. (2021). HFS‐LightGBM: A machine learning model based on hybrid feature selection for classifying ICU patient readmissions. *Expert Systems*, *38*(3). https://doi.org/10.1111/exsy.12658
+8. (2022). Two-stage matching decision-making method in medical service supply chain. *International Journal of Logistics Research and Applications*, *25*(4–5), 623–638. https://doi.org/10.1080/13675567.2021.1878489
+
+9. (2021). HFS‐LightGBM: A machine learning model based on hybrid feature selection for classifying ICU patient readmissions. *Expert Systems*, *38*(3). https://doi.org/10.1111/exsy.12658
 
    
 
