@@ -76,11 +76,128 @@ mongorestore --uri="mongodb://localhost:27017" \
 
 ### 导出为json
 
+
+
+#### pymongo实现 批量导出并删除：无需认证
+
+```
+#!/usr/bin/env python3
+import os
+import pymongo
+from pymongo import MongoClient
+import json
+import sys
+from bson import json_util
+
+
+
+
+
+
+def export_and_delete_collections(DB_NAME,HOST,OUTPUT_DIR,max_collections) :
+    try :
+        # 创建输出目录
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+        # 连接 MongoDB
+        client = MongoClient(HOST)
+        db = client[DB_NAME]
+
+        # 获取所有集合名
+        collection_names = db.list_collection_names()
+
+        # 限制只处理前5000个集合
+        counter = 0
+
+
+        print(f"找到 {len(collection_names)} 个集合，开始导出并删除前 {max_collections} 个集合...")
+
+        for collection_name in collection_names :
+            if counter >= max_collections :
+                break
+
+            print(f"正在处理 ({counter + 1}/{max_collections}): {collection_name}")
+
+            try :
+                collection = db[collection_name]
+
+                # 检查集合是否为空
+                if collection.count_documents({}) == 0 :
+                    print(f"集合 {collection_name} 为空，直接删除")
+                    db[collection_name].drop()
+                    counter += 1
+                    continue
+
+                # 导出集合数据到JSON文件
+                output_file = os.path.join(OUTPUT_DIR, f"{collection_name}.json")
+                success = False
+
+                with open(output_file, 'w', encoding='utf-8') as f :
+                    # 使用批量查询提高效率
+                    cursor = collection.find()
+                    doc_count = 0
+
+                    for doc in cursor :
+                        # 使用BSON工具处理MongoDB特殊类型
+                        json_str = json_util.dumps(doc)
+                        f.write(json_str + '\n')
+                        doc_count += 1
+
+                print(f"导出成功: {doc_count} 个文档 -> {output_file}")
+
+                # 验证文件是否创建且非空
+                if os.path.exists(output_file) and os.path.getsize(output_file) > 0 :
+                    # 删除集合
+                    db[collection_name].drop()
+                    print(f"成功删除集合: {collection_name}")
+                    success = True
+                else :
+                    print(f"警告: 导出文件可能为空，跳过删除集合 {collection_name}")
+
+            except Exception as e :
+                print(f"错误: 处理集合 {collection_name} 时发生异常: {str(e)}")
+                continue
+
+            if success :
+                counter += 1
+
+            print("----------------------------------------")
+
+        print(f"操作完成！导出的文件保存在: {OUTPUT_DIR}")
+        print(f"成功处理 {counter} 个集合")
+        return True
+
+    except Exception as e :
+        print(f"连接或处理过程中发生错误: {str(e)}")
+        return False
+    finally :
+        # 关闭连接
+        if 'client' in locals() :
+            client.close()
+
+
+if __name__ == "__main__" :
+    # 配置参数
+    # 指定要导出的db_name
+    DB_NAME = "zhiu_yjh"
+    # 数据库地址
+    HOST = "localhost:27017"
+    # 导出的保存路径
+    OUTPUT_DIR = "E:/mongosh_output/tem"
+    # 导出db_name下多少个collections
+    max_collections = 2
+    success = export_and_delete_collections(DB_NAME,HOST,OUTPUT_DIR,max_collections)
+    sys.exit(0 if success else 1)
+```
+
+
+
+#### linux实现
+
 批量导出
 
 ```
 #!/bin/bash
-DB_URI="mongodb://localhost:27017/数据库名"
+DB_URI="mongodb://localhost:27017/video_info_new_1"
 OUTPUT_DIR="/mnt/mongosh_output/数据库名"
 mkdir -p "$OUTPUT_DIR"
 
@@ -92,17 +209,20 @@ for collection in $collections; do
     echo "正在导出: $collection"
     mongoexport --uri="$DB_URI" \
                --collection="$collection" \
+               --limit=10 \
                --out="$OUTPUT_DIR/${collection}.json"
 done
 echo "导出完成！"
 ```
 
+
+
 批量导入
 
 ```
 #!/bin/bash
-DB_URI="mongodb://localhost:27017/数据库名"
-INPUT_DIR="/mnt/sdb1/liuhu/mongodb_output/数据库名"
+DB_URI="mongodb://localhost:27017/all_disease_video_info"
+INPUT_DIR="/mnt/sdb1/liuhu/bilibili_all_disease/bvids_comment/tem"
 
 echo "开始导入集合..."
 for json_file in "$INPUT_DIR"/*.json; do
@@ -120,7 +240,217 @@ echo "导入完成！"
 
 
 
+jsonarray
 
+```
+#!/bin/bash
+DB_URI="mongodb://localhost:27017/all_disease_video_info"
+INPUT_DIR="/mnt/sdb1/liuhu/bilibili_all_disease/bvids_comment/tem"
+
+echo "开始导入集合..."
+for json_file in "$INPUT_DIR"/*.json; do
+    # 提取集合名（去掉.json后缀）
+    collection=$(basename "$json_file" .json)
+    echo "正在导入: $collection"
+    
+    mongoimport --uri="$DB_URI" \
+               --collection="$collection" \
+               --file="$json_file" \
+               --jsonArray  # 恢复这个参数
+done
+echo "导入完成！"
+```
+
+
+
+
+
+
+
+
+
+批量导出并删除：无需认证
+
+```
+#!/bin/bash
+DB_NAME="video_info_new_1"
+HOST="localhost:27017"
+OUTPUT_DIR="/mnt/sdb1/liuhu/mongo_data/analysis_comment"
+mkdir -p "$OUTPUT_DIR"
+
+# 获取所有集合名
+collections=$(mongosh --host "$HOST" "$DB_NAME" --quiet --eval "db.getCollectionNames().join('\n')")
+
+# 限制只处理前5000个集合
+counter=0
+echo "开始导出并删除前5000个集合..."
+for collection in $collections; do
+    if [ $counter -ge 10000 ]; then
+        break
+    fi
+    
+    echo "正在导出: $collection"
+    # 导出集合
+    mongoexport --host "$HOST" \
+               --db "$DB_NAME" \
+               --collection="$collection" \
+               --out="$OUTPUT_DIR/${collection}.json"
+    
+    # 检查导出是否成功
+    if [ $? -eq 0 ]; then
+        echo "导出成功，正在删除集合: $collection"
+        # 删除集合
+        mongosh --host "$HOST" \
+               "$DB_NAME" \
+               --quiet \
+               --eval "db.${collection}.drop()"
+        
+        if [ $? -eq 0 ]; then
+            echo "成功删除集合: $collection"
+        else
+            echo "警告: 删除集合 $collection 失败"
+        fi
+    else
+        echo "错误: 导出集合 $collection 失败，跳过删除"
+    fi
+    
+    counter=$((counter + 1))
+    echo "----------------------------------------"
+done
+echo "操作完成！导出的文件保存在: $OUTPUT_DIR"
+```
+
+
+
+批量导出并删除：用户认证登录
+
+```
+#!/bin/bash
+USERNAME="wq"
+PASSWORD="uxxi+>#6:@#o*dZpPAUso*a@eV)"
+DB_NAME="video_info"
+AUTH_DB="admin"
+HOST="localhost:27017"
+OUTPUT_DIR="/home/wq/tem/bilibili/13"
+mkdir -p "$OUTPUT_DIR"
+
+# 获取所有集合名
+collections=$(mongosh --username "$USERNAME" --password "$PASSWORD" --authenticationDatabase "$AUTH_DB" --host "$HOST" "$DB_NAME" --quiet --eval "db.getCollectionNames().join('\n')")
+
+# 限制只处理前10个集合
+counter=0
+echo "开始导出并删除前10个集合..."
+for collection in $collections; do
+    if [ $counter -ge 2000 ]; then
+        break
+    fi
+    
+    echo "正在导出: $collection"
+    # 导出集合
+    mongoexport --username "$USERNAME" \
+               --password "$PASSWORD" \
+               --authenticationDatabase "$AUTH_DB" \
+               --host "$HOST" \
+               --db "$DB_NAME" \
+               --collection="$collection" \
+               --out="$OUTPUT_DIR/${collection}.json"
+    
+    # 检查导出是否成功
+    if [ $? -eq 0 ]; then
+        echo "导出成功，正在删除集合: $collection"
+        # 删除集合
+        mongosh --username "$USERNAME" \
+               --password "$PASSWORD" \
+               --authenticationDatabase "$AUTH_DB" \
+               --host "$HOST" \
+               "$DB_NAME" \
+               --quiet \
+               --eval "db.${collection}.drop()"
+        
+        if [ $? -eq 0 ]; then
+            echo "成功删除集合: $collection"
+        else
+            echo "警告: 删除集合 $collection 失败"
+        fi
+    else
+        echo "错误: 导出集合 $collection 失败，跳过删除"
+    fi
+    
+    counter=$((counter + 1))
+    echo "----------------------------------------"
+done
+echo "操作完成！导出的文件保存在: $OUTPUT_DIR"
+```
+
+
+
+
+
+只导出不删除
+
+```
+#!/bin/bash
+DB_NAME="video_info_new_1"
+HOST="localhost:27017"
+OUTPUT_DIR="/mnt/sdb1/liuhu/bilibili_all_disease/12"
+mkdir -p "$OUTPUT_DIR"
+
+# 获取所有集合名
+collections=$(mongosh --host "$HOST" "$DB_NAME" --quiet --eval "db.getCollectionNames().join('\n')")
+
+# 限制只处理前2000个集合
+counter=0
+total=0
+echo "开始导出只导出不删除）..."
+echo "========================================"
+
+for collection in $collections; do
+    if [ $counter -ge 10 ]; then
+        break
+    fi
+    
+    # 每500个集合输出一次进度
+    if [ $((counter % 500)) -eq 0 ] && [ $counter -ne 0 ]; then
+        echo "进度：已导出 $counter 个集合"
+        echo "----------------------------------------"
+    fi
+    
+    # 静默导出，不显示每个集合的进度
+    mongoexport --host "$HOST" \
+               --db "$DB_NAME" \
+               --collection="$collection" \
+               --out="$OUTPUT_DIR/${collection}.json" \
+               --quiet > /dev/null 2>&1
+    
+    # 检查导出是否成功
+    if [ $? -eq 0 ]; then
+        total=$((total + 1))
+    else
+        echo "警告: 导出集合 $collection 失败"
+    fi
+    
+    counter=$((counter + 1))
+done
+
+echo "========================================"
+echo "操作完成！"
+echo "成功导出 $total/$counter 个集合"
+echo "导出的文件保存在: $OUTPUT_DIR"
+```
+
+
+
+
+
+
+
+
+
+单个导入 大文件也没问题
+
+```
+mongoimport --uri "mongodb://localhost:27017" --db zhihu_new --collection answer_answer_article_7topic --file /mnt/sdb1/liuhu/zhihu/answer_answer_article_7topic.json
+```
 
 
 
